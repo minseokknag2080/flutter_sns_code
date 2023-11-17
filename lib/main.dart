@@ -17,8 +17,11 @@ import 'package:sns_clonecode/providers/auth/auth_provider.dart';
 import 'package:sns_clonecode/providers/auth/auth_state.dart';
 import 'package:sns_clonecode/providers/feed/fedd_state.dart';
 import 'package:sns_clonecode/providers/feed/feed_provider.dart';
+import 'package:sns_clonecode/providers/profile/profile_provider.dart';
+import 'package:sns_clonecode/providers/profile/profile_state.dart';
 import 'package:sns_clonecode/repositories/auth_repository.dart';
 import 'package:sns_clonecode/repositories/feed_repository.dart';
+import 'package:sns_clonecode/repositories/profile_repository.dart';
 import 'package:sns_clonecode/screens/signin_screen.dart';
 import 'package:sns_clonecode/screens/splash_screen.dart';
 //import 'package:sns_clonecode/screens/signup_screen.dart';
@@ -53,6 +56,10 @@ class MyApp extends StatelessWidget {
             firebaseStorage: FirebaseStorage.instance,
           ),
         ),
+        Provider<ProfileRepository>(
+          create: (context) =>
+              ProfileRepository(firebaseFirestore: FirebaseFirestore.instance),
+        ),
 
         //firebase에서 오류가 발생해 연결이 끊겨도 여기선 알 수 없다.
         //그러므로 실시간으로 연결상태를 확인해서
@@ -71,6 +78,9 @@ class MyApp extends StatelessWidget {
         ),
         StateNotifierProvider<FeedProvider, FeedState>(
           create: (context) => FeedProvider(),
+        ),
+        StateNotifierProvider<ProfileProvider, ProfileState>(
+          create: (context) => ProfileProvider(),
         ),
       ],
       child: MaterialApp(

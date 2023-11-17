@@ -74,9 +74,6 @@ class AuthRepository {
       UserCredential userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      String? mimeType = lookupMimeType('', headerBytes: profileImage!);
-      SettableMetadata metadata = SettableMetadata(contentType: 'image/png');
-
       //회원가입하면 그 유저 고유의 id 값 생성 -> profile 파일의 파일 명으로 사용하겠다.
       String uid = userCredential.user!.uid;
 
@@ -92,7 +89,7 @@ class AuthRepository {
       if (profileImage != null) {
         Reference ref = firebaseStorage.ref().child('profile').child(uid);
 
-        TaskSnapshot snapshot = await ref.putData(profileImage!, metadata);
+        TaskSnapshot snapshot = await ref.putData(profileImage);
         // UploadTask uploadTask = ref.putData(profileImage);
         //저장 중인데 이미지 파일 url을 가져올려고 하니까 에러가 발생한다.
         downloadURL = await snapshot.ref.getDownloadURL();

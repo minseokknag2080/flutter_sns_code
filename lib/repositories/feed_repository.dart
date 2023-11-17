@@ -18,7 +18,10 @@ class FeedRepository {
   });
 
   //
-  Future<List<FeedModel>> getFeedList() async {
+  Future<List<FeedModel>> getFeedList({
+    String? uid,
+    //유저 아이디 전달
+  }) async {
     try {
       //firesotre feed collection에 접근해서 저장되어 있는 모든 문서들을 가져온다.
 
@@ -26,6 +29,8 @@ class FeedRepository {
       //저장한 시간 날짜를 가지고 있는 filed가 createAt이다.
       QuerySnapshot<Map<String, dynamic>> snapshot = await firebaseFirestore
           .collection('feeds')
+          .where('uid', isEqualTo: uid)
+          //우리가 매개변수로 전달받은 uid와 같은 값
           .orderBy('createAt', descending: true)
           .get();
 

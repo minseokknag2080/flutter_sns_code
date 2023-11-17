@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sns_clonecode/providers/auth/auth_provider.dart';
 import 'package:sns_clonecode/screens/feed_screen.dart';
 import 'package:sns_clonecode/screens/feed_upload_screen.dart';
+import 'package:sns_clonecode/screens/profile_screen.dart';
 import 'package:sns_clonecode/utils/logger.dart';
 
 class MainScreen extends StatefulWidget {
@@ -69,9 +70,7 @@ class _MainScreenState extends State<MainScreen>
               Center(
                 child: Text('4'),
               ),
-              Center(
-                child: Text('5'),
-              ),
+              ProfileScreen(),
             ]),
         bottomNavigationBar: BottomNavigationBar(
             //shifting - 애니메이션
