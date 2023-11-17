@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sns_clonecode/providers/auth/auth_provider.dart';
+import 'package:sns_clonecode/screens/feed_screen.dart';
 import 'package:sns_clonecode/screens/feed_upload_screen.dart';
 import 'package:sns_clonecode/utils/logger.dart';
 
@@ -37,6 +38,13 @@ class _MainScreenState extends State<MainScreen>
   }
 
   @override
+  void dispose() {
+    tabController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
@@ -47,12 +55,16 @@ class _MainScreenState extends State<MainScreen>
             //스크롤 금지
             physics: NeverScrollableScrollPhysics(),
             children: [
-              FeedUploadScreen(),
+              FeedScreen(),
               Center(
                 child: Text('2'),
               ),
-              Center(
-                child: Text('3'),
+              FeedUploadScreen(
+                onFeedUploaded: () {
+                  setState(() {
+                    tabController.index = 0;
+                  });
+                },
               ),
               Center(
                 child: Text('4'),
@@ -65,7 +77,7 @@ class _MainScreenState extends State<MainScreen>
             //shifting - 애니메이션
             //fixed 애니메이션 삭제 색만 들어간다.
             type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
+            showSelectedLabels: true,
             //선택된 레이블 숨긴다.
             showUnselectedLabels: false,
             //아이템이 클릭되면 그 아이템의 index를 전달해주면, pointing 된다.

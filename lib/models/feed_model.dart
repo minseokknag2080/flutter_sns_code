@@ -13,7 +13,7 @@ class FeedModel {
   final List<String> likes;
   final int commentCount;
   final int likeCount;
-  final Timestamp creatAt;
+  final Timestamp createAt;
   final UserModel writer;
 
   const FeedModel({
@@ -24,7 +24,7 @@ class FeedModel {
     required this.likes,
     required this.commentCount,
     required this.likeCount,
-    required this.creatAt,
+    required this.createAt,
     required this.writer,
   });
 
@@ -39,7 +39,7 @@ class FeedModel {
       'likes': this.likes,
       'commentCount': this.commentCount,
       'likeCount': this.likeCount,
-      'creatAt': this.creatAt,
+      'createAt': this.createAt,
       'writer': userDocRef,
     };
   }
@@ -53,8 +53,13 @@ class FeedModel {
       likes: List<String>.from((map['likes'])),
       commentCount: map['commentCount'],
       likeCount: map['likeCount'],
-      creatAt: map['creatAt'],
+      createAt: map['createAt'],
       writer: map['writer'],
     );
+  }
+
+  @override
+  String toString() {
+    return 'FeedModel(uid: $uid, feedId: $feedId, desc: $desc, imageUrls: $imageUrls, likes: $likes, commentCount: $commentCount, likeCount: $likeCount, createAt: $createAt, writer: $writer)';
   }
 }
